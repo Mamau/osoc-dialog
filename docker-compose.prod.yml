@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  app:
+    env_file:
+      - ./.env
+    depends_on:
+      - mysql
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+      - ${PROM_PORT}:${PROM_PORT} # prometheus
+    environment:
+      - LDFLAGS=${LDFLAGS}
+    volumes:
+      - .:/app
